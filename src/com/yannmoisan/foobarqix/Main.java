@@ -1,14 +1,11 @@
 package com.yannmoisan.foobarqix;
-import java.util.Arrays;
 
 public class Main {
 
 	private static final String[] SUBSTITUTION_WORDS = new String[] { "Foo", "Bar", "Qix" };
 	private static final char[] DIGITS = { '3', '5', '7' };
-	private static final int[][] DIVISIBLE_BY = new int[][] {
-			newDivisibleByArray(3), 
-			newDivisibleByArray(5),
-			newDivisibleByArray(7)};
+	private static final int[] DIVISORS = new int[] { 3, 5, 7 };
+	
 	private static final int MAX_INDEX = 100;
 
 	public static void main(String[] args) {
@@ -29,7 +26,7 @@ public class Main {
 	
 	private static void processDivisor(StringBuilder sb, int n) {
 		for (int i = 0; i < SUBSTITUTION_WORDS.length; i++) {
-			if (Arrays.binarySearch(DIVISIBLE_BY[i], n) >= 0) {
+			if (n % DIVISORS[i] == 0) {
 				sb.append(SUBSTITUTION_WORDS[i]);
 			}
 		}
@@ -50,15 +47,5 @@ public class Main {
 		if (sb.length() == 0) {
 			sb.append(n);
 		}
-	}
-	
-	private static int[] newDivisibleByArray(int n) {
-		int[] array = new int[Math.round(MAX_INDEX / n)];
-
-		for (int i = 0; i < array.length; i++) {
-			array[i] = (i + 1) * n;
-		}
-
-		return array;
-	}
+	}	
 }
