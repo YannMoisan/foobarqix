@@ -8,39 +8,50 @@ public class Main {
 	}
 
 	/* package*/ static String process(int n) {
-		final StringBuilder sb = new StringBuilder();
-
-		processStepDivisor(sb, n);
-		processStepContent(sb, n);
-		processStepEmpty(sb, n);
-
-		return sb.toString();
+		return new FooBarQixBuilder()
+				.buildPartDivisor(n)
+				.buildPartContent(n)
+				.buildPartRaw(n)
+				.toString();
 	}
 	
-	private static void processStepDivisor(StringBuilder sb, int n) {
-		for (FooBarQix fbq:FooBarQix.values()) {
-			if (n % fbq.value == 0) {
-				sb.append(fbq.replace);
-			}
-		}
-	}
-
-	private static void processStepContent(StringBuilder sb, int n) {
-		String s = Integer.toString(n);
-		for (int j = 0; j < s.length(); j++) {
+	private static class FooBarQixBuilder {
+		private final StringBuilder sb = new StringBuilder();
+		
+		public FooBarQixBuilder buildPartDivisor(int n) {
 			for (FooBarQix fbq:FooBarQix.values()) {
-				if (s.charAt(j) == fbq.charValue) {
+				if (n % fbq.value == 0) {
 					sb.append(fbq.replace);
 				}
 			}
+			return this;
+		}
+
+		public FooBarQixBuilder buildPartContent(int n) {
+			String s = Integer.toString(n);
+			for (int j = 0; j < s.length(); j++) {
+				for (FooBarQix fbq:FooBarQix.values()) {
+					if (s.charAt(j) == fbq.charValue) {
+						sb.append(fbq.replace);
+					}
+				}
+			}
+			return this;
+		}
+		
+		public FooBarQixBuilder buildPartRaw(int n) {
+			if (sb.length() == 0) {
+				sb.append(n);
+			}
+			return this;
+		}
+
+		@Override
+		public String toString() {
+			return sb.toString();
 		}
 	}
-
-	private static void processStepEmpty(StringBuilder sb, int n) {
-		if (sb.length() == 0) {
-			sb.append(n);
-		}
-	}	
+	
 	
 	private enum FooBarQix {
 		FOO("Foo", 3),
