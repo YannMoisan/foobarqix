@@ -1,5 +1,8 @@
-YAGNI
-KISS
-No Copy/Paste
-Code As Documentation
-TDD
+Code Story : Premier exercice de sélection, FooBarQix
+-----------------------------------------------------
+Ma contribution est codée en langage Java, et se base notamment sur les principes suivants (qui me tiennent à coeur):
+- YAGNI
+- KISS
+- Pas de duplication de code
+- Code As Documentation
+- TDD
